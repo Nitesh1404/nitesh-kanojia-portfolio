@@ -124,7 +124,51 @@
 }
 
 @media (max-width: 768px) {
-  #hero { padding: 120px 24px 60px; }
-  .hero-stats { gap: 28px; }
-  .hero-deco { display: none; }
+  #hero {
+    padding: 100px 20px 60px;
+  }
+
+  .hero-stats {
+    gap: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 2×2 grid, no overflow */
+    row-gap: 24px;
+    column-gap: 0;
+  }
+
+  .stat-num {
+    font-size: 36px;
+  }
+
+  .hero-scroll {
+    left: 20px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    /* stack buttons vertically */
+    gap: 12px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    text-align: center;
+    padding: 13px 24px;
+    font-size: 12px;
+  }
+
+  .hero-deco {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-name {
+    font-size: clamp(64px, 18vw, 80px);
+  }
+
+  .stat-num {
+    font-size: 30px;
+  }
 }

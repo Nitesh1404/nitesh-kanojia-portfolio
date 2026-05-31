@@ -123,5 +123,13 @@ section {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  section { padding: 80px 24px; }
+  section {
+    padding: 64px 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  section {
+    padding: 52px 16px;
+  }
 }

@@ -59,5 +59,16 @@
 .value-desc { font-size: 14px; color: rgba(232,244,255,0.6); line-height: 1.7; }
 
 @media (max-width: 768px) {
-  .about-grid { grid-template-columns: 1fr; }
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .education-card {
+    padding: 24px 20px;
+  }
+
+  .edu-cgpa {
+    font-size: 34px;
+  }
 }

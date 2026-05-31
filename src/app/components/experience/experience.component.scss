@@ -1,72 +1,174 @@
-#experience { background: var(--surface); }
+#experience {
+  background: var(--surface);
+}
 
 .exp-card {
   border: 1px solid var(--border);
-  padding: 48px;
+  padding: 40px 48px;
   background: var(--card);
-  position: relative; overflow: hidden;
+  position: relative;
+  overflow: hidden;
   transition: border-color 0.3s;
   margin-bottom: 24px;
 
   &::after {
     content: '';
-    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
     background: linear-gradient(180deg, var(--cyan), var(--green));
   }
-  &:hover { border-color: rgba(0,200,255,0.5); }
+
+  &:hover {
+    border-color: rgba(0, 200, 255, 0.5);
+  }
 }
 
 .exp-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  flex-wrap: wrap; gap: 16px; margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
 .exp-company {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 36px; letter-spacing: 2px; color: var(--white);
+  font-size: clamp(24px, 5vw, 36px);
+  /* was fixed 36px — now scales */
+  letter-spacing: 2px;
+  color: var(--white);
 }
 
 .exp-product {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; color: var(--cyan);
-  letter-spacing: 2px; text-transform: uppercase; margin-top: 4px;
+  font-size: 11px;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
+  word-break: break-word;
 }
 
 .exp-badge {
-  display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+  /* stop badge from squishing */
 }
 
 .exp-date {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; color: var(--green); letter-spacing: 2px;
-  padding: 6px 16px; border: 1px solid rgba(0,255,179,0.3);
-  background: rgba(0,255,179,0.05);
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 1px;
+  padding: 5px 12px;
+  border: 1px solid rgba(0, 255, 179, 0.3);
+  background: rgba(0, 255, 179, 0.05);
+  white-space: nowrap;
+  /* prevent date from wrapping mid-word */
 }
 
 .exp-role {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; color: var(--orange);
-  letter-spacing: 2px; text-transform: uppercase;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: right;
 }
 
 .exp-list {
-  list-style: none; display: flex; flex-direction: column; gap: 14px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 
   li {
-    display: flex; gap: 16px; font-size: 15px;
-    color: rgba(232,244,255,0.75); line-height: 1.7;
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(232, 244, 255, 0.75);
+    line-height: 1.75;
+    word-break: break-word;
+    /* long words/URLs won't overflow */
+    overflow-wrap: break-word;
 
-    &::before { content: '▹'; color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
+    &::before {
+      content: '▹';
+      color: var(--cyan);
+      flex-shrink: 0;
+      margin-top: 3px;
+      font-size: 13px;
+    }
   }
 }
 
-/* inline badges used inside bullet HTML */
+/* inline badges inside bullet HTML */
 :host ::ng-deep {
-  .exp-highlight { color: var(--white); font-weight: 600; }
+  .exp-highlight {
+    color: var(--white);
+    font-weight: 600;
+  }
+
   .tps-badge {
-    display: inline-block; padding: 2px 10px;
-    background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.4);
-    color: var(--orange); font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; border-radius: 2px; margin: 0 2px;
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.4);
+    color: var(--orange);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    border-radius: 2px;
+    margin: 0 2px;
+    white-space: nowrap;
+  }
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .exp-card {
+    padding: 24px 20px 24px 28px;
+    /* tighter, left space for the bar */
+  }
+
+  .exp-header {
+    flex-direction: column;
+    /* stack company + badge vertically */
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .exp-badge {
+    align-items: flex-start;
+    /* left-align date & role on mobile */
+    flex-direction: row;
+    /* put date and role side by side */
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .exp-role {
+    text-align: left;
+  }
+
+  .exp-list li {
+    font-size: 13px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .exp-card {
+    padding: 20px 16px 20px 24px;
+  }
+
+  .exp-badge {
+    flex-direction: column;
   }
 }

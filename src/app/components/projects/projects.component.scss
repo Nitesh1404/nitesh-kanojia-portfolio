@@ -65,5 +65,18 @@
 }
 
 @media (max-width: 768px) {
-  .projects-grid { grid-template-columns: 1fr; }
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-card {
+    padding: 28px 20px;
+  }
+
+  .project-num {
+    font-size: 56px;
+    top: 12px;
+    right: 16px;
+  }
 }
