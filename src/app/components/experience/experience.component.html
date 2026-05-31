@@ -1,0 +1,20 @@
+<section id="experience">
+  <div class="section-label reveal">Where I've worked</div>
+  <h2 class="section-title reveal reveal-delay-1">WORK <span class="hl">EXPERIENCE</span></h2>
+
+  <div class="exp-card reveal reveal-delay-2" *ngFor="let job of data.experience">
+    <div class="exp-header">
+      <div>
+        <div class="exp-company">{{ job.company }}</div>
+        <div class="exp-product">{{ job.product }}</div>
+      </div>
+      <div class="exp-badge">
+        <div class="exp-date">{{ job.date }}</div>
+        <div class="exp-role">{{ job.role }}</div>
+      </div>
+    </div>
+    <ul class="exp-list">
+      <li *ngFor="let bullet of job.bullets" [innerHTML]="bullet"></li>
+    </ul>
+  </div>
+</section>

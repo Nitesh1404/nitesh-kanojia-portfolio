@@ -1,0 +1,63 @@
+#about { background: var(--surface); }
+
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+}
+
+.about-bio {
+  font-size: 17px; line-height: 1.9;
+  color: rgba(232,244,255,0.7);
+
+  :host ::ng-deep strong { color: var(--cyan); font-weight: 600; }
+}
+
+.education-card {
+  padding: 36px; border: 1px solid var(--border);
+  background: var(--card); position: relative; margin-top: 32px;
+
+  &::before {
+    content: '🎓'; position: absolute; top: -16px; left: 24px;
+    font-size: 24px; background: var(--surface); padding: 0 8px;
+  }
+}
+
+.edu-degree {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px; letter-spacing: 1px; color: var(--white); margin-bottom: 8px;
+}
+
+.edu-school { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+
+.edu-cgpa {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px; color: var(--green); text-shadow: var(--glow-green);
+}
+
+.edu-cgpa-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--muted); letter-spacing: 2px;
+}
+
+.about-right { display: flex; flex-direction: column; gap: 24px; }
+
+.value-card {
+  padding: 28px; border: 1px solid var(--border);
+  background: var(--card); border-left: 3px solid var(--cyan);
+  transition: transform 0.3s;
+
+  &:hover { transform: translateX(8px); }
+  &:nth-child(2) { border-left-color: var(--green); }
+  &:nth-child(3) { border-left-color: var(--orange); }
+}
+
+.value-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 1px; margin-bottom: 8px;
+}
+
+.value-desc { font-size: 14px; color: rgba(232,244,255,0.6); line-height: 1.7; }
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; }
+}

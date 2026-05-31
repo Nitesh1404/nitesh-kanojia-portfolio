@@ -1,0 +1,47 @@
+#contact {
+  background: var(--bg);
+  text-align: center;
+  position: relative; overflow: hidden;
+
+  &::before {
+    content: 'CONNECT';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(120px, 18vw, 240px);
+    color: rgba(0,200,255,0.03);
+    letter-spacing: 10px;
+    pointer-events: none; white-space: nowrap;
+  }
+}
+
+.contact-tagline {
+  font-size: clamp(20px, 3vw, 32px);
+  color: rgba(232,244,255,0.6);
+  max-width: 560px; margin: 0 auto 48px;
+  line-height: 1.6;
+}
+
+.contact-links {
+  display: flex; justify-content: center; gap: 20px;
+  flex-wrap: wrap; margin-bottom: 60px;
+}
+
+.contact-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 28px;
+  border: 1px solid var(--border); background: var(--card);
+  color: var(--white); text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; letter-spacing: 1px;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  cursor: none;
+
+  &:hover {
+    border-color: var(--cyan);
+    background: rgba(0,200,255,0.08);
+    transform: translateY(-4px);
+  }
+}
+
+.icon { font-size: 18px; }

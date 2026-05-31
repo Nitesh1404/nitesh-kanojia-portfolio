@@ -1,0 +1,16 @@
+<section id="skills">
+  <div class="section-label reveal">Technical Arsenal</div>
+  <h2 class="section-title reveal reveal-delay-1">SKILLS &amp; <span class="hl">TECH</span></h2>
+
+  <div class="skills-grid">
+    <div class="skill-cat reveal" [class]="'reveal reveal-delay-' + (i + 1)"
+         *ngFor="let cat of data.skills; let i = index">
+      <div class="skill-cat-icon">{{ cat.icon }}</div>
+      <div class="skill-cat-name">{{ cat.name }}</div>
+      <div class="skill-tags">
+        <span class="skill-tag" [class.hot]="tag.hot"
+              *ngFor="let tag of cat.tags">{{ tag.label }}</span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+<section id="hero">
+  <div class="hero-eyebrow">
+    <span class="live-dot"></span>
+    <span>// Available for opportunities</span>&nbsp;|&nbsp;{{ data.location }}
+  </div>
+
+  <h1 class="hero-name">
+    {{ data.name }}<br><span class="accent">{{ data.nameLine2 }}</span>
+  </h1>
+
+  <p class="hero-title" [innerHTML]="data.tagline"></p>
+
+  <p class="hero-summary" [innerHTML]="data.summary"></p>
+
+  <div class="hero-cta">
+    <a class="btn-primary" href="#experience" (click)="scrollTo('#experience'); $event.preventDefault()">
+      View Experience
+    </a>
+    <a class="btn-secondary" href="#contact" (click)="scrollTo('#contact'); $event.preventDefault()">
+      Get In Touch
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item" *ngFor="let stat of data.stats; let i = index">
+      <div class="stat-num" #statNum>0</div>
+      <div class="stat-label">{{ stat.label }}</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+
+  <div class="hero-deco">
+    <div class="deco-tag" *ngFor="let tag of data.heroDeco">&lt;{{ tag }}&gt;</div>
+  </div>
+</section>

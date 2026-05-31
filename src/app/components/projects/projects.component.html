@@ -1,0 +1,20 @@
+<section id="projects">
+  <div class="section-label reveal">What I've built</div>
+  <h2 class="section-title reveal reveal-delay-1">PERSONAL <span class="hl">PROJECTS</span></h2>
+
+  <div class="projects-grid">
+    <div class="project-card reveal" [class]="'reveal reveal-delay-' + (i + 2)"
+         *ngFor="let project of data.projects; let i = index">
+      <div class="project-num">{{ project.num }}</div>
+      <div class="project-icon">{{ project.icon }}</div>
+      <div class="project-name">{{ project.name }}</div>
+      <div class="project-stack">
+        <span *ngFor="let tech of project.stack">{{ tech }}</span>
+      </div>
+      <p class="project-desc">{{ project.description }}</p>
+      <div class="project-metrics">
+        <div class="metric" *ngFor="let m of project.metrics">{{ m }}</div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+<section id="contact">
+  <div class="section-label reveal" style="text-align:center">Reach out</div>
+  <h2 class="section-title reveal reveal-delay-1" style="text-align:center">
+    LET'S <span class="hl">TALK</span>
+  </h2>
+
+  <p class="contact-tagline reveal reveal-delay-2">{{ data.contactTagline }}</p>
+
+  <div class="contact-links reveal reveal-delay-3">
+    <a *ngFor="let link of data.contactLinks"
+       [href]="link.href"
+       class="contact-link"
+       target="_blank"
+       rel="noopener noreferrer">
+      <span class="icon">{{ link.icon }}</span> {{ link.label }}
+    </a>
+  </div>
+</section>
