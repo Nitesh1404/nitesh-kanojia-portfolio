@@ -1,4 +1,6 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import {
+  Component, OnInit, OnDestroy, Renderer2, NgZone, ChangeDetectorRef
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,17 +8,24 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="cursor" [style.left.px]="cx" [style.top.px]="cy"
+    <div class="cursor"
+         [style.left.px]="cx"
+         [style.top.px]="cy"
          [class.hovered]="hovered"></div>
-    <div class="cursor-trail" [style.left.px]="tx" [style.top.px]="ty"></div>
+    <div class="cursor-trail"
+         [style.left.px]="tx"
+         [style.top.px]="ty"></div>
   `,
   styles: [`
     .cursor {
-      position: fixed; width: 12px; height: 12px;
-      background: var(--cyan); border-radius: 50%;
-      pointer-events: none; z-index: 9999;
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--cyan);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      transition: width 0.2s, height 0.2s, background 0.2s;
       mix-blend-mode: screen;
     }
     .cursor.hovered {
@@ -24,54 +33,80 @@ import { CommonModule } from '@angular/common';
       background: var(--green);
     }
     .cursor-trail {
-      position: fixed; width: 36px; height: 36px;
-      border: 1px solid rgba(0,200,255,0.4); border-radius: 50%;
-      pointer-events: none; z-index: 9998;
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(0, 200, 255, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
       transform: translate(-50%, -50%);
       transition: opacity 0.3s;
     }
   `]
 })
 export class CursorComponent implements OnInit, OnDestroy {
-  cx = 0; cy = 0;
-  tx = 0; ty = 0;
+  cx = -100; cy = -100;   // start offscreen
+  tx = -100; ty = -100;
   hovered = false;
-  private mx = 0; private my = 0;
-  private intervalId: ReturnType<typeof setInterval> | null = null;
+
+  private mx = -100; private my = -100;
+  private rafId = 0;
   private unlisteners: (() => void)[] = [];
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private zone: NgZone,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
+    // Run mousemove INSIDE zone so Angular binding updates cx/cy instantly
     this.unlisteners.push(
       this.renderer.listen('document', 'mousemove', (e: MouseEvent) => {
-        this.mx = e.clientX; this.my = e.clientY;
-        this.cx = e.clientX; this.cy = e.clientY;
+        this.cx = e.clientX;
+        this.cy = e.clientY;
+        this.mx = e.clientX;
+        this.my = e.clientY;
       })
     );
 
-    this.intervalId = setInterval(() => {
-      this.tx += (this.mx - this.tx) * 0.12;
-      this.ty += (this.my - this.ty) * 0.12;
-    }, 16);
+    // Run the trail lerp OUTSIDE zone (no change detection on every frame)
+    // but call cdr.detectChanges() manually to update the trail binding
+    this.zone.runOutsideAngular(() => {
+      const loop = () => {
+        this.tx += (this.mx - this.tx) * 0.12;
+        this.ty += (this.my - this.ty) * 0.12;
+        this.cdr.detectChanges();          // push trail coords to DOM
+        this.rafId = requestAnimationFrame(loop);
+      };
+      this.rafId = requestAnimationFrame(loop);
+    });
 
-    // Hover effect on interactive elements
-    const onEnter = () => this.hovered = true;
-    const onLeave = () => this.hovered = false;
+    // Hover detection
     this.unlisteners.push(
       this.renderer.listen('document', 'mouseover', (e: MouseEvent) => {
-        const el = e.target as HTMLElement;
-        if (el.closest('a, button')) this.hovered = true;
+        if ((e.target as HTMLElement).closest('a, button')) {
+          this.hovered = true;
+        }
       }),
       this.renderer.listen('document', 'mouseout', (e: MouseEvent) => {
-        const el = e.target as HTMLElement;
-        if (el.closest('a, button')) this.hovered = false;
+        if ((e.target as HTMLElement).closest('a, button')) {
+          this.hovered = false;
+        }
+      })
+    );
+
+    // Hide cursor dots when mouse leaves window
+    this.unlisteners.push(
+      this.renderer.listen('document', 'mouseleave', () => {
+        this.cx = -100; this.cy = -100;
+        this.tx = -100; this.ty = -100;
       })
     );
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) clearInterval(this.intervalId);
+    cancelAnimationFrame(this.rafId);
     this.unlisteners.forEach(u => u());
   }
 }
