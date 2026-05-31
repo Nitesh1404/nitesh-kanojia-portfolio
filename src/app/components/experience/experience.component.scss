@@ -83,27 +83,56 @@
   text-align: right;
 }
 
+// .exp-list {
+//   list-style: none;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 14px;
+
+//   li {
+//     display: flex;
+//     gap: 12px;
+//     font-size: 14px;
+//     color: rgba(232, 244, 255, 0.75);
+//     line-height: 1.75;
+//     word-break: break-word;
+//     /* long words/URLs won't overflow */
+//     overflow-wrap: break-word;
+
+//     &::before {
+//       content: '▹';
+//       color: var(--cyan);
+//       flex-shrink: 0;
+//       margin-top: 3px;
+//       font-size: 13px;
+//     }
+//   }
+// }
+
+
 .exp-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 
   li {
-    display: flex;
-    gap: 12px;
+    position: relative;
+    padding-left: 20px;
+    /* space for the arrow */
     font-size: 14px;
     color: rgba(232, 244, 255, 0.75);
-    line-height: 1.75;
+    line-height: 1.8;
     word-break: break-word;
-    /* long words/URLs won't overflow */
     overflow-wrap: break-word;
 
+    /* arrow sits in the left gutter, never in the text flow */
     &::before {
       content: '▹';
+      position: absolute;
+      left: 0;
+      top: 2px;
       color: var(--cyan);
-      flex-shrink: 0;
-      margin-top: 3px;
       font-size: 13px;
     }
   }
@@ -116,18 +145,33 @@
     font-weight: 600;
   }
 
-  .tps-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    background: rgba(255, 107, 53, 0.15);
-    border: 1px solid rgba(255, 107, 53, 0.4);
-    color: var(--orange);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    border-radius: 2px;
-    margin: 0 2px;
-    white-space: nowrap;
-  }
+  // .tps-badge {
+  //   display: inline-block;
+  //   padding: 2px 8px;
+  //   background: rgba(255, 107, 53, 0.15);
+  //   border: 1px solid rgba(255, 107, 53, 0.4);
+  //   color: var(--orange);
+  //   font-family: 'JetBrains Mono', monospace;
+  //   font-size: 11px;
+  //   border-radius: 2px;
+  //   margin: 0 2px;
+  //   white-space: nowrap;
+  // }
+
+.tps-badge {
+  display: inline;
+  /* inline not inline-block — flows with text */
+  padding: 1px 7px;
+  background: rgba(255, 107, 53, 0.15);
+  border: 1px solid rgba(255, 107, 53, 0.4);
+  color: var(--orange);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  border-radius: 2px;
+  margin: 0 3px;
+  vertical-align: middle;
+}
+
 }
 
 /* ── MOBILE ── */
