@@ -174,8 +174,8 @@ export const PORTFOLIO_DATA: PortfolioData = {
   contactLinks: [
     { icon: '✉️', label: 'niteshkanojia1010@gmail.com', href: 'mailto:niteshkanojia1010@gmail.com' },
     { icon: '📱', label: '+91 9137683154',              href: 'tel:+919137683154' },
-    { icon: '🐙', label: 'GitHub',                      href: 'https://github.com' },
-    { icon: '💼', label: 'LinkedIn',                    href: 'https://linkedin.com' },
-    { icon: '⚡', label: 'LeetCode',                    href: 'https://leetcode.com' }
+    { icon: '🐙', label: 'GitHub',                      href: 'https://github.com/Nitesh1404' },
+    { icon: '💼', label: 'LinkedIn',                    href: 'https://www.linkedin.com/in/nitesh-kanojia/' },
+    { icon: '⚡', label: 'LeetCode',                    href: 'https://leetcode.com/u/Nitesh_14/' }
   ]
 };
